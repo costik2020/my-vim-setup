@@ -1,4 +1,5 @@
 
+
 " vim basic config setup
 
 " Force vim to not add older features from VI
@@ -23,20 +24,46 @@ filetype plugin on
 :set smarttab
 :set softtabstop=4
 :set mouse=a
-" Basic settings for the VIM build in complete menu
+
+" Basic settings for the VIM build in autocompletion menu
+
+" Using completefunc
 set complete+=kspell 
 set completeopt=menuone,longest " Pick if there is only 1 match, and the longest
 set shortmess+=c " Remove selections from the bottom status bar
 
+" Using omnifunc 
+" This is the location where all these omnifunc functions are located on a Linux machine `/usr/share/vim/vim82/autoload/RstFold.vim` 
+" adacomplete.vim, ccomplete.vim, clojurecomplete.vim, haskellcomplete.vim, and more...
+" To activate press Ctr + x and Ctr + o and then the menu will pop up for the omnifunc function
+" set omnifunc=javascriptcomplete#CompleteJS
+" set omnifunc=htmlcompete#CompleteTags
+" set omnifunc=csscomplete#CompleteCSS
+" set omnifunct=phpcomplete#CompletePHP
+
+
 set showcmd " Shows the keys and commands that I use in the insert mode
 
 " FINDING FILES FUZZY SEARCH
+" To search a file you can use `:find foo.txt` and press `Tab` Key to get any file withing the tree
 " Search down into subdirectories recursively
 " Provides tab-competion for all file-related tasks
 set path+=**
 
 " Display all matching fiels when we tab complete
 set wildmenu
+
+" Ignore the huge node_modules directory which will slow down my VIM or any
+" other search program because this directory is very very large!!...  
+set wildignore+=**/node_modules/**
+
+
+" Search text in one file
+" Highlight the text found with `/` commmand in vim 
+set hlsearch
+
+
+
 
 " NOW WE CAN: 
 " - Hit tab to :find by partial match
@@ -57,6 +84,16 @@ command! MakeTags !ctags -R .
 
 " THINGS TO CONSIDER: 
 " - Thins doens't help if you want a visual list of tags
+
+" Open the first tile split on the right instead of on the bottom
+" "set splitbelow splitright
+" set splitright
+set splitright splitbelow 
+
+
+" Make sure that the line end is a Linux line and and not Windows line endif (aka line break )
+" set fileformat unix
+
 
 
 
@@ -129,6 +166,22 @@ inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 
 
+" Remap Visual Mode to other keys 
+nnoremap vv <C-v>
+
+" Change copy paste behaviour
+" To have clipboard support for VIM, I installed `sudo apt install vim-gtk3` a new version of vim
+" To see more on the features run `vim --version` inside Terminal
+" If `:echo has('clipboard')` returns `1` the it is good you have access to Linux OS clipboard, else if it returns `0` that means you don't have access to your Linux OS system clipboard.
+" You could use gvim to get around this issue..
+vnoremap <C-c> "+y
+map <C-v> "+p
+" vnoremap <C-c> "+y
+" vnoremap <C-c> y
+" map <C-v> "+p
+" map <C-v> "+P
+
+
 
 
 " Theme Background
@@ -163,6 +216,12 @@ colorscheme one
 
 
 
+" Vim Airline modify default behaviour
+" Automatically displays all buffers when there's only one tab open.
+let g:airline#extensions#tabline#enabled = 1
+
+
+
 " My code snipets
 " I will need to be in NORMAL mode not in the INSERT mode for this to work
 " nnoremap tells vim to not reinvoke the commands again and again and the first "n" out of nnoremap stands for normal mode
@@ -175,7 +234,6 @@ nnoremap ,snipet :-1read $HOME/.vim/snippets/my-snipet.js<CR>
 
 
 " ------------------------------------------------------------
-
 
 
 
