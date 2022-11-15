@@ -1,9 +1,15 @@
 
-
 " vim basic config setup
 
 " Force vim to not add older features from VI
 set nocompatible
+
+" Automatic reloading of .vimrc file  on save of .vimrc
+" Instead to use `:source $MYVIMRC` every single time
+autocmd! bufwritepost .vimrc source %
+
+
+
 
 " Enable syntx coloring
 syntax enable
@@ -11,19 +17,26 @@ syntax enable
 " Enable plugins
 filetype plugin on
 
-:set number
+set number
 " :set relativenumber
 
 " Enable vim to point to the Linux + clipboard
 " set clipboard=unnamedplus
 " set clipboard^=unnamed,unnamedplus
 
-:set autoindent
-:set tabstop=4
-:set shiftwidth=4
-:set smarttab
-:set softtabstop=4
-:set mouse=a
+" Make sure that a tab means indent by 4 spaces
+set autoindent
+set tabstop=4
+set shiftwidth=4
+set smarttab
+set softtabstop=4
+set mouse=a
+set shiftround
+set expandtab
+
+
+
+
 
 " Basic settings for the VIM build in autocompletion menu
 
@@ -63,6 +76,15 @@ set wildignore+=**/node_modules/**
 set hlsearch
 
 
+"Make backspace to behave like normal backspace 
+set bs=2
+
+
+" Easier moving of code blocks, indentation for `>` and `<` keys
+vnoremap < <gv 
+vnoremap > >gv 
+
+
 
 
 " NOW WE CAN: 
@@ -94,8 +116,16 @@ set splitright splitbelow
 " Make sure that the line end is a Linux line and and not Windows line endif (aka line break )
 " set fileformat unix
 
+" Force vim to read a file when it was updated outside of vim, for example if
+" a SASS compiler ouputed a new CSS file or another compiler outputs new code
+" like Typescript to JavaScript..
+set autoread
 
-
+" I just disable the creation of swap files, I know I could lose my work in
+" case of a blackout, but this is a quick way to solve this problem  
+set noswapfile
+set nowritebackup
+set nobackup
 
 
 
@@ -118,6 +148,12 @@ Plug 'https://github.com/rakr/vim-one' " Vim One theme, it is a nice theme, and 
 
 call plug#end()
 
+
+
+
+
+" Start NERDTree and leave the cursor in it.
+autocmd VimEnter * NERDTree
 
 
 
@@ -144,7 +180,7 @@ inoremap <expr> <Down> pumvisible() ? "<C-n>" :"<Down>"
 inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
 
 " Select the complete menu item like CTRL+y would.
-inoremap <expr> <Right> pumvisible() ? "<C-y>" : "<Right>"
+" inoremap <expr> <Right> pumvisible() ? "<C-y>" : "<Right>"
 " inoremap <expr> <CR> pumvisible() ? "<C-y>" :"<CR>"
 inoremap <expr> <Tab> pumvisible() ? "<C-y>" :"<Tab>"
 
@@ -175,7 +211,7 @@ nnoremap vv <C-v>
 " If `:echo has('clipboard')` returns `1` the it is good you have access to Linux OS clipboard, else if it returns `0` that means you don't have access to your Linux OS system clipboard.
 " You could use gvim to get around this issue..
 vnoremap <C-c> "+y
-map <C-v> "+p
+map <C-v> "+P
 " vnoremap <C-c> "+y
 " vnoremap <C-c> y
 " map <C-v> "+p
@@ -218,8 +254,11 @@ colorscheme one
 
 " Vim Airline modify default behaviour
 " Automatically displays all buffers when there's only one tab open.
-let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#enabled = 1
 
+" Separators can be configured independently for the tabline, so here is how you can define 'straight' tabs: 
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
 
 
 " My code snipets
@@ -234,6 +273,7 @@ nnoremap ,snipet :-1read $HOME/.vim/snippets/my-snipet.js<CR>
 
 
 " ------------------------------------------------------------
+
 
 
 
