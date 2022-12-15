@@ -49,9 +49,9 @@ set shortmess+=c " Remove selections from the bottom status bar
 " This is the location where all these omnifunc functions are located on a Linux machine `/usr/share/vim/vim82/autoload/RstFold.vim` 
 " adacomplete.vim, ccomplete.vim, clojurecomplete.vim, haskellcomplete.vim, and more...
 " To activate press Ctr + x and Ctr + o and then the menu will pop up for the omnifunc function
-" set omnifunc=javascriptcomplete#CompleteJS
-" set omnifunc=htmlcompete#CompleteTags
-" set omnifunc=csscomplete#CompleteCSS
+set omnifunc=javascriptcomplete#CompleteJS
+set omnifunc=htmlcompete#CompleteTags
+set omnifunc=csscomplete#CompleteCSS
 " set omnifunct=phpcomplete#CompletePHP
 
 
@@ -145,6 +145,9 @@ Plug 'https://github.com/preservim/nerdtree' " Tree of directories and files on 
 Plug 'https://github.com/mattn/emmet-vim' " Emmet code snipets for html
 Plug 'https://github.com/vim-scripts/AutoComplPop' " A pop up that will apear and it is using the VIM buildin autocomplete feature
 Plug 'https://github.com/rakr/vim-one' " Vim One theme, it is a nice theme, and I prefer the dark color..
+Plug 'maxmellon/vim-jsx-pretty' " The JSX/React syntax highlighting and indenting plugin for vim.  
+
+
 
 call plug#end()
 
@@ -154,7 +157,8 @@ call plug#end()
 
 " Start NERDTree and leave the cursor in it.
 autocmd VimEnter * NERDTree
-
+" Make NERDTree to show hidden files and hidden directories 
+let NERDTreeShowHidden=1
 
 
 " Key bindings
@@ -168,6 +172,10 @@ nnoremap <C-f> :NERDTreeFind<CR>
 
 " Emmet shortcuts
 let g:user_emmet_mode='n' " only enables functions in normal mode 
+" let g:user_emmet_leader_key = '<Tab>' " Will triger emmet when I press Tab and hopefully get rid of that error when emmet eats the last letter
+" ATTENTION MAKE SURE YOU DON'T HAVE SPACE AFTER THE ABBREVIATION STRING WHEN
+" YOU PRESS TAB FOR EXAMPLE `heade[r] ` WILL NOT WORK BUT `heade[r]` WILL WORK
+" BECAUSE THERE IS NO SPACE AFTER THE CURSOR, SO MAKE SURE YOU DO NOT HAVE SPACE
 let g:user_emmet_expandabbr_key = '<Tab>' " Triger when I press tab 
 " let g:user_emmet_leader_key=','
 " let g:user_emmet_leader_key='<tab>'
